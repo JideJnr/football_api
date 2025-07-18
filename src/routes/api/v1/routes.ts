@@ -1,5 +1,5 @@
 import express from 'express';
-import { sendCommand } from './botClient';
+import { sendCommand } from '../../../botClient';
 
 const router = express.Router();
 

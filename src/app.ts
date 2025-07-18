@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import morgan from 'morgan';
-import routes from './routes';
+import routes from './routes/api/v1/routes';
 import swaggerUi from 'swagger-ui-express';
 import swaggerJsdoc from 'swagger-jsdoc';
 
@@ -45,7 +45,7 @@ const swaggerOptions = {
       }
     }
   },
-  apis: ['./src/routes/api/v1/*.ts'] // change to .ts if you're writing in TypeScript
+  apis: ['./src/routes/api/v1/*.ts']    
 };
 
 const swaggerSpec = swaggerJsdoc(swaggerOptions);
