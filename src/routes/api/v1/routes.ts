@@ -112,7 +112,7 @@ router.post('/stop', async (_req, res) => {
 
 /**
  * @swagger
- * /health:
+ * /status:
  *   get:
  *     summary: Health check endpoint
  *     tags: [Bot Control]
