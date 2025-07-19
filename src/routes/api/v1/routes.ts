@@ -5,43 +5,6 @@ const router = express.Router();
 
 /**
  * @swagger
- * tags:
- *   name: Bot Control
- *   description: API endpoints for controlling the bot
- */
-
-/**
- * @swagger
- * components:
- *   schemas:
- *     BotResponse:
- *       type: object
- *       properties:
- *         status:
- *           type: string
- *           example: "success"
- *         message:
- *           type: string
- *           example: "Bot started successfully"
- *     ErrorResponse:
- *       type: object
- *       properties:
- *         error:
- *           type: string
- *           example: "Failed to start bot service"
- *         details:
- *           type: string
- *           example: "Connection timeout"
- *   securitySchemes:
- *     ApiKeyAuth:
- *       type: apiKey
- *       in: header
- *       name: x-api-key
- *       description: API key for authentication
- */
-
-/**
- * @swagger
  * /start:
  *   post:
  *     summary: Start the bot
@@ -55,22 +18,23 @@ const router = express.Router();
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/BotResponse'
- *       500:
- *         description: Internal server error
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/ErrorResponse'
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 message:
+ *                   type: string
+ *                   example: "Bot started"
  */
 router.post('/start', async (_req, res) => {
   try {
-    const result = await sendCommand('start');
-    res.json(result);
+    await sendCommand('start');
+    res.status(200).json({ success: true, message: 'Bot started' });
   } catch (error) {
-    res.status(500).json({ 
-      error: 'Failed to start bot service',
-      details: error instanceof Error ? error.message : 'Unknown error'
+    res.status(500).json({
+      success: false,
+      message: error instanceof Error ? error.message : 'Unknown error'
     });
   }
 });
@@ -90,24 +54,64 @@ router.post('/start', async (_req, res) => {
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/BotResponse'
- *       500:
- *         description: Internal server error
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/ErrorResponse'
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 message:
+ *                   type: string
+ *                   example: "Bot stopped"
  */
 router.post('/stop', async (_req, res) => {
   try {
-    const result = await sendCommand('stop');
-    res.json(result);
+    await sendCommand('stop');
+    res.status(200).json({ success: true, message: 'Bot stopped' });
   } catch (error) {
-    res.status(500).json({ 
-      error: 'Failed to stop bot service',
-      details: error instanceof Error ? error.message : 'Unknown error'
+    res.status(500).json({
+      success: false,
+      message: error instanceof Error ? error.message : 'Unknown error'
     });
   }
+});
+
+/**
+ * @swagger
+ * /status:
+ *   get:
+ *     summary: Get bot status
+ *     tags: [Bot Control]
+ *     description: Returns the current bot running status
+ *     security:
+ *       - ApiKeyAuth: []
+ *     responses:
+ *       200:
+ *         description: Bot status
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 message:
+ *                   type: string
+ *                   example: "Bot is running"
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     running:
+ *                       type: boolean
+ *                       example: true
+ */
+router.get('/status', (_req, res) => {
+  const running = getStatus(); // should return boolean
+  res.status(200).json({
+    success: true,
+    message: running ? 'Bot is running' : 'Bot is stopped',
+    data: { running } 
+  });
 });
 
 export default router;
