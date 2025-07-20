@@ -90,7 +90,7 @@ export const postPrediction = async ( res: Response) => {
   }
 };
 
-export const runPredictionById = async ( res: Response) => {
+export const getPredictionById = async ( res: Response) => {
   try {
     const result = await sendCommand('prediction/id');
     res.json(result);
