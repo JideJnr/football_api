@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
 const morgan_1 = __importDefault(require("morgan"));
-const routes_1 = __importDefault(require("./routes"));
+const index_1 = __importDefault(require("./routes/api/v1/index"));
 const swagger_ui_express_1 = __importDefault(require("swagger-ui-express"));
 const swagger_jsdoc_1 = __importDefault(require("swagger-jsdoc"));
 const app = (0, express_1.default)();
@@ -46,7 +46,7 @@ const swaggerOptions = {
             }
         }
     },
-    apis: ['./src/routes/api/v1/*.ts'] // change to .ts if you're writing in TypeScript
+    apis: ['./src/routes/api/v1/*.ts']
 };
 const swaggerSpec = (0, swagger_jsdoc_1.default)(swaggerOptions);
 app.use('/api-docs', swagger_ui_express_1.default.serve, swagger_ui_express_1.default.setup(swaggerSpec));
@@ -58,5 +58,5 @@ app.get('/health', (req, res) => {
         environment: process.env.NODE_ENV || 'development'
     });
 });
-app.use('/', routes_1.default);
+app.use('/', index_1.default);
 exports.default = app;
