@@ -1,6 +1,5 @@
 import e, { Request, Response } from "express";
 
-
 export const getMatchesByDate = async (req:Request, res: Response) => {
   try {
     res.status(201).json({ success: true, message:'All Live Matches' , data: []  });
@@ -25,7 +24,7 @@ export const getCountryById = async (req:Request, res: Response) => {
   }
 };
 
-export const getAllCountries = async (req:Request, res: Response) => {
+export const getAllCountries = async ( res: Response) => {
   try {
     res.status(201).json({ success: true, message:'All Live country' , data: []  });
   } catch (error) {

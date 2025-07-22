@@ -102,6 +102,59 @@ export const getPredictionById = async ( res: Response) => {
   }
 };
 
+export const getAllLogic = async ( res: Response) => {
+  try {
+    const result = await sendCommand('logic/all');
+    res.json(result);
+  } catch (error) {
+    res.status(201).json({
+      success: false, 
+      error: 'Failed to start bot service',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+};
+
+export const getAllGamesByLogic = async ( res: Response) => {
+  try {
+    const result = await sendCommand('logic/all');
+    res.json(result);
+  } catch (error) {
+    res.status(201).json({
+      success: false, 
+      error: 'Failed to start bot service',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+};
+
+export const getSuggestion = async ( res: Response) => {
+  try {
+    const result = await sendCommand('logic/all');
+    res.json(result);
+  } catch (error) {
+    res.status(201).json({
+      success: false, 
+      error: 'Failed to start bot service',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+};
+
+export const getUserData = async ( res: Response) => {
+  try {
+    const result = await sendCommand('logic/all');
+    res.json(result);
+  } catch (error) {
+    res.status(201).json({
+      success: false, 
+      error: 'Failed to start bot service',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+};
+
+
 
 
 

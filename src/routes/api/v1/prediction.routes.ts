@@ -1,5 +1,5 @@
 import express from 'express';
-import { getAllPredictionsByDate } from '../../../controllers/prediction.controller.js';
+import { getAllPredictionsByDate } from '../../../controllers/analytics.controller';
 
 const router = express.Router();
 

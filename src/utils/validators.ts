@@ -1,16 +1,13 @@
-import { NextFunction, Request, Response } from 'express';
 import  { body } from 'express-validator';
 import jwt from 'jsonwebtoken';
 
 export const signupValidator = [
   body('email').isEmail().normalizeEmail(),
   body('password').isLength({ min: 8 }),
-  body('firstName').not().isEmpty().trim().escape(),
-  body('lastName').not().isEmpty().trim().escape(),
-  body('role').optional().isIn(['guest', 'staff', 'admin'])
+  body('fullName').not().isEmpty().trim().escape(),
 ];
 
-export const verifyJWT = (req:Request, res:Response, next:NextFunction) => {
+export const verifyJWT = (req, res, next) => {
   const authHeader = req.headers.authorization;
   if (!authHeader || !authHeader.startsWith('Bearer ')) {
     return res.status(401).json({ error: 'No token provided' });
