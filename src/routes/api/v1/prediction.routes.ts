@@ -6,3 +6,9 @@ const router = express.Router();
 router.put('/prediction/date', getAllPredictionsByDate);
 
 export default router;
+/**
+ * @swagger
+ * tags:
+ *   name: Prediction
+ *   description: Prediction related endpoints
+ */
