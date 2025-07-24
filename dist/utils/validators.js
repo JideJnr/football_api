@@ -9,7 +9,7 @@ const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 exports.signupValidator = [
     (0, express_validator_1.body)('email').isEmail().normalizeEmail(),
     (0, express_validator_1.body)('password').isLength({ min: 8 }),
-    (0, express_validator_1.body)('fullName').not().isEmpty().trim().escape(),
+    (0, express_validator_1.body)('fullName').notEmpty().trim().escape(),
 ];
 const verifyJWT = (req, res, next) => {
     const authHeader = req.headers.authorization;
