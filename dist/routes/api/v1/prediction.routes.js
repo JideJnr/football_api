@@ -8,3 +8,9 @@ const analytics_controller_1 = require("../../../controllers/analytics.controlle
 const router = express_1.default.Router();
 router.put('/prediction/date', analytics_controller_1.getAllPredictionsByDate);
 exports.default = router;
+/**
+ * @swagger
+ * tags:
+ *   name: Prediction
+ *   description: Prediction related endpoints
+ */ 

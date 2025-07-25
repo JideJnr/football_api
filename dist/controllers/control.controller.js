@@ -1,10 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getUserData = exports.getSuggestion = exports.getAllGamesByLogic = exports.getAllLogic = exports.getPredictionById = exports.postPrediction = exports.runBetBuilder = exports.getStatusById = exports.startBotById = exports.getAllBot = exports.stopEngine = exports.startEngine = void 0;
+exports.getStatusById = exports.startBotById = exports.getAllBot = exports.checkEngineStatus = exports.stopEngine = exports.startEngine = void 0;
 const botClient_1 = require("../botClient");
 const startEngine = async (res) => {
     try {
-        const result = await (0, botClient_1.sendCommand)('start');
+        const result = await (0, botClient_1.sendPostCommand)('start');
         res.json(result);
     }
     catch (error) {
@@ -18,7 +18,7 @@ const startEngine = async (res) => {
 exports.startEngine = startEngine;
 const stopEngine = async (res) => {
     try {
-        const result = await (0, botClient_1.sendCommand)('stop');
+        const result = await (0, botClient_1.sendPostCommand)('stop');
         res.json(result);
     }
     catch (error) {
@@ -30,9 +30,23 @@ const stopEngine = async (res) => {
     }
 };
 exports.stopEngine = stopEngine;
+const checkEngineStatus = async (res) => {
+    try {
+        const result = await (0, botClient_1.sendPostCommand)('status');
+        res.json(result);
+    }
+    catch (error) {
+        res.status(201).json({
+            success: false,
+            error: 'Failed to stop bot service',
+            details: error instanceof Error ? error.message : 'Unknown error'
+        });
+    }
+};
+exports.checkEngineStatus = checkEngineStatus;
 const getAllBot = async (res) => {
     try {
-        const result = await (0, botClient_1.sendCommand)('all');
+        const result = await (0, botClient_1.sendPostCommand)('all');
         res.json(result);
     }
     catch (error) {
@@ -46,7 +60,7 @@ const getAllBot = async (res) => {
 exports.getAllBot = getAllBot;
 const startBotById = async (res) => {
     try {
-        const result = await (0, botClient_1.sendCommand)('start/id');
+        const result = await (0, botClient_1.sendPostCommand)('start/id');
         res.json(result);
     }
     catch (error) {
@@ -60,7 +74,7 @@ const startBotById = async (res) => {
 exports.startBotById = startBotById;
 const getStatusById = async (res) => {
     try {
-        const result = await (0, botClient_1.sendCommand)('getStatus/id');
+        const result = await (0, botClient_1.sendPostCommand)('getStatus/id');
         res.json(result);
     }
     catch (error) {
@@ -71,98 +85,3 @@ const getStatusById = async (res) => {
     }
 };
 exports.getStatusById = getStatusById;
-const runBetBuilder = async (res) => {
-    try {
-        const result = await (0, botClient_1.sendCommand)('betBuilder');
-        res.json(result);
-    }
-    catch (error) {
-        res.status(201).json({
-            error: 'Failed to stop bot service',
-            details: error instanceof Error ? error.message : 'Unknown error'
-        });
-    }
-};
-exports.runBetBuilder = runBetBuilder;
-const postPrediction = async (res) => {
-    try {
-        const result = await (0, botClient_1.sendCommand)('prediction/id');
-        res.json(result);
-    }
-    catch (error) {
-        res.status(500).json({
-            error: 'Failed to start bot service',
-            details: error instanceof Error ? error.message : 'Unknown error'
-        });
-    }
-};
-exports.postPrediction = postPrediction;
-const getPredictionById = async (res) => {
-    try {
-        const result = await (0, botClient_1.sendCommand)('prediction/id');
-        res.json(result);
-    }
-    catch (error) {
-        res.status(500).json({
-            error: 'Failed to stop bot service',
-            details: error instanceof Error ? error.message : 'Unknown error'
-        });
-    }
-};
-exports.getPredictionById = getPredictionById;
-const getAllLogic = async (res) => {
-    try {
-        const result = await (0, botClient_1.sendCommand)('logic/all');
-        res.json(result);
-    }
-    catch (error) {
-        res.status(201).json({
-            success: false,
-            error: 'Failed to start bot service',
-            details: error instanceof Error ? error.message : 'Unknown error'
-        });
-    }
-};
-exports.getAllLogic = getAllLogic;
-const getAllGamesByLogic = async (res) => {
-    try {
-        const result = await (0, botClient_1.sendCommand)('logic/all');
-        res.json(result);
-    }
-    catch (error) {
-        res.status(201).json({
-            success: false,
-            error: 'Failed to start bot service',
-            details: error instanceof Error ? error.message : 'Unknown error'
-        });
-    }
-};
-exports.getAllGamesByLogic = getAllGamesByLogic;
-const getSuggestion = async (res) => {
-    try {
-        const result = await (0, botClient_1.sendCommand)('logic/all');
-        res.json(result);
-    }
-    catch (error) {
-        res.status(201).json({
-            success: false,
-            error: 'Failed to start bot service',
-            details: error instanceof Error ? error.message : 'Unknown error'
-        });
-    }
-};
-exports.getSuggestion = getSuggestion;
-const getUserData = async (res) => {
-    try {
-        const result = await (0, botClient_1.sendCommand)('logic/all');
-        res.json(result);
-    }
-    catch (error) {
-        res.status(201).json({
-            success: false,
-            error: 'Failed to start bot service',
-            details: error instanceof Error ? error.message : 'Unknown error'
-        });
-    }
-};
-exports.getUserData = getUserData;

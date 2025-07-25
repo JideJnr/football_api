@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getAllPredictionsByDate = exports.getBotMetrics = exports.getOverview = void 0;
+exports.getAllPredictionsByDate = exports.getPredictionMetrics = exports.getOverview = void 0;
 const getOverview = async (res) => {
     try {
         res.status(201).json({
@@ -18,7 +18,7 @@ const getOverview = async (res) => {
     }
 };
 exports.getOverview = getOverview;
-const getBotMetrics = async (res) => {
+const getPredictionMetrics = async (res) => {
     try {
         res.status(201).json({
             success: true,
@@ -34,7 +34,7 @@ const getBotMetrics = async (res) => {
         });
     }
 };
-exports.getBotMetrics = getBotMetrics;
+exports.getPredictionMetrics = getPredictionMetrics;
 const getAllPredictionsByDate = async (req, res) => {
     try {
         res.status(200).json({
