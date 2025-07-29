@@ -2,8 +2,7 @@ import express from 'express';
 import {
   getAllBot,
   getStatusById,
-  postPrediction,
-  runBetBuilder,
+
   startBotById,
   startEngine,
   stopEngine,
@@ -97,17 +96,6 @@ router.post('/start/id', startBotById);
  */
 router.get('/stop/id', startBotById);
 
-/**
- * @swagger
- * /control/betbuilder:
- *   get:
- *     summary: Run bet builder utility
- *     tags: [Bot Control]
- *     responses:
- *       200:
- *         description: Bet builder executed
- */
-router.get('/betbuilder', runBetBuilder);
 
 /**
  * @swagger
@@ -128,29 +116,5 @@ router.get('/betbuilder', runBetBuilder);
  */
 router.get('/status/id', getStatusById);
 
-/**
- * @swagger
- * /control/prediction:
- *   post:
- *     summary: Post a new prediction
- *     tags: [Bot Control]
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               matchId:
- *                 type: string
- *                 example: "match_123"
- *               prediction:
- *                 type: string
- *                 example: "home_win"
- *     responses:
- *       200:
- *         description: Prediction posted
- */
-router.post('/prediction', postPrediction);
 
 export default router;

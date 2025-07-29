@@ -88,17 +88,6 @@ router.post('/start/id', control_controller_1.startBotById);
 router.get('/stop/id', control_controller_1.startBotById);
 /**
  * @swagger
- * /control/betbuilder:
- *   get:
- *     summary: Run bet builder utility
- *     tags: [Bot Control]
- *     responses:
- *       200:
- *         description: Bet builder executed
- */
-router.get('/betbuilder', control_controller_1.runBetBuilder);
-/**
- * @swagger
  * /control/status/id:
  *   get:
  *     summary: Get status of a specific bot
@@ -115,28 +104,4 @@ router.get('/betbuilder', control_controller_1.runBetBuilder);
  *         description: Bot status returned
  */
 router.get('/status/id', control_controller_1.getStatusById);
-/**
- * @swagger
- * /control/prediction:
- *   post:
- *     summary: Post a new prediction
- *     tags: [Bot Control]
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               matchId:
- *                 type: string
- *                 example: "match_123"
- *               prediction:
- *                 type: string
- *                 example: "home_win"
- *     responses:
- *       200:
- *         description: Prediction posted
- */
-router.post('/prediction', control_controller_1.postPrediction);
 exports.default = router;

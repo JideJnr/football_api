@@ -19,17 +19,4 @@ const router = express_1.default.Router();
  *         description: Server error
  */
 router.post('/overview', analytics_controller_1.getOverview);
-/**
- * @swagger
- * /analytics/getmetrics:
- *   get:
- *     summary: Get bot performance metrics
- *     tags: [Analytics]
- *     responses:
- *       200:
- *         description: Bot metrics retrieved successfully
- *       500:
- *         description: Server error
- */
-router.get('/getmetrics', analytics_controller_1.getBotMetrics);
 exports.default = router;
