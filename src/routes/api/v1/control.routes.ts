@@ -19,7 +19,7 @@ const router = express.Router();
 
 /**
  * @swagger
- * /control/start:
+ * /start:
  *   post:
  *     summary: Start the entire engine
  *     tags: [Bot Control]
@@ -33,7 +33,7 @@ router.post('/start', startEngine);
 
 /**
  * @swagger
- * /control/stop:
+ * /stop:
  *   get:
  *     summary: Stop the entire engine
  *     tags: [Bot Control]
@@ -45,7 +45,7 @@ router.get('/stop', stopEngine);
 
 /**
  * @swagger
- * /control/all:
+ * /all:
  *   get:
  *     summary: Get all available bots
  *     tags: [Bot Control]
@@ -57,7 +57,7 @@ router.get('/all', getAllBot);
 
 /**
  * @swagger
- * /control/start/id:
+ * start/id:
  *   post:
  *     summary: Start a specific bot by ID
  *     tags: [Bot Control]
@@ -75,7 +75,7 @@ router.get('/all', getAllBot);
  *       200:
  *         description: Bot started successfully
  */
-router.post('/start/id', startBotById);
+router.post('/start/:id', startBotById);
 
 /**
  * @swagger
@@ -94,7 +94,7 @@ router.post('/start/id', startBotById);
  *       200:
  *         description: Bot stopped successfully
  */
-router.get('/stop/id', startBotById);
+router.get('/stop/:id', startBotById);
 
 
 /**
@@ -114,7 +114,7 @@ router.get('/stop/id', startBotById);
  *       200:
  *         description: Bot status returned
  */
-router.get('/status/id', getStatusById);
+router.get('/status/:id', getStatusById);
 
 
 export default router;
