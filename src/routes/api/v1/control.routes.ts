@@ -6,9 +6,7 @@ import {
   stopBotById,
   startEngine,
   stopEngine,
-  runBetBuilder,
-  postPrediction,
-  getPredictionById,
+  checkEngineStatus,
 } from '../../../controllers/control.controller';
 
 const router = express.Router();
@@ -16,7 +14,7 @@ const router = express.Router();
 // Engine control - POST for actions
 router.post('/start', startEngine);
 router.post('/stop', stopEngine);
-router.get('/status', getStatusById);
+router.get('/status', checkEngineStatus);
 
 // Get all bots - GET
 router.get('/all', getAllBots);
