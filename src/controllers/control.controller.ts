@@ -1,7 +1,6 @@
 import { Request, Response } from 'express';
-import { sendPostCommand } from '../botClient';
+import { sendGetCommand, sendPostCommand } from '../botClient';
 
-// Engine control
 export const startEngine = async (req: Request, res: Response) => {
   try {
     const result = await sendPostCommand('start');
@@ -30,7 +29,7 @@ export const stopEngine = async (req: Request, res: Response) => {
 
 export const checkEngineStatus = async (req: Request, res: Response) => {
   try {
-    const result = await sendPostCommand('status');
+    const result = await sendGetCommand('status');
     res.json(result);
   } catch (error) {
     res.status(200).json({
@@ -41,10 +40,9 @@ export const checkEngineStatus = async (req: Request, res: Response) => {
   }
 };
 
-// Bots list
 export const getAllBots = async (req: Request, res: Response) => {
   try {
-    const result = await sendPostCommand('all');
+    const result = await sendGetCommand('all');
     res.json(result);
   } catch (error) {
     res.status(200).json({
@@ -55,7 +53,6 @@ export const getAllBots = async (req: Request, res: Response) => {
   }
 };
 
-// Start bot by id
 export const startBotById = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
@@ -70,7 +67,6 @@ export const startBotById = async (req: Request, res: Response) => {
   }
 };
 
-// Stop bot by id
 export const stopBotById = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
@@ -85,11 +81,10 @@ export const stopBotById = async (req: Request, res: Response) => {
   }
 };
 
-// Get status by bot id
 export const getStatusById = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-    const result = await sendPostCommand(`status/${id}`);
+    const result = await sendGetCommand(`status/${id}`);
     res.json(result);
   } catch (error) {
     res.status(200).json({
