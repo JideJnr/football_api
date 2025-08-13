@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { MongoClient, ObjectId } from "mongodb";
 
 const uri = process.env.MONGODB_URI || '';
-const dbName = process.env.MONGODB_DB || 'sportsData';
+const dbName =  'sportsData';
 const collectionName = 'liveMatches';
 
 export const getLiveMatches = async (req: Request, res: Response) => {
