@@ -2,7 +2,7 @@ import express from 'express';
 import controlRoutes from './control.routes';
 import predictionRoutes from './control.routes';
 import countryRoutes from './control.routes';
-import matchesRoutes from './control.routes';
+import matchesRoutes from './matches.routes';
 
 const router = express.Router();
 
