@@ -11,12 +11,17 @@ import {
 
 const router = express.Router();
 
+// ✅ Live matches (only team names + score)
 router.get('/match/live', getLiveMatches);
-router.get('/match/id', getMatchById);
+
+// ✅ Match by ID (full details, cleaned)
+router.get('/match/:id', getMatchById);
+
+// Other endpoints
 router.get('/match/date', getMatchesByDate);
-router.get('/country/id', getCountryById);
+router.get('/country/:id', getCountryById);
 router.get('/country', getAllCountries);
-router.get('/team/id', getTeamById);
-router.get('/player/id', getPlayerById);
+router.get('/team/:id', getTeamById);
+router.get('/player/:id', getPlayerById);
 
 export default router;

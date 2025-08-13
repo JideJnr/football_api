@@ -62,11 +62,11 @@ export const getUpcomingMatches = async (req:Request, res: Response) => {
     }
   };
 
-  export const getMatchById = async (req: Request, res: Response) => {
+export const getMatchById = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
 
-    if (!id || !ObjectId.isValid(id)) {
+    if (!ObjectId.isValid(id)) {
       return res.status(400).json({
         success: false,
         message: 'Invalid match ID',
@@ -80,7 +80,6 @@ export const getUpcomingMatches = async (req:Request, res: Response) => {
     const collection = db.collection(collectionName);
 
     const match = await collection.findOne({ _id: new ObjectId(id) });
-
     await client.close();
 
     if (!match) {
@@ -91,34 +90,31 @@ export const getUpcomingMatches = async (req:Request, res: Response) => {
       });
     }
 
-    // Optional: Clean empty/null fields
-    const cleanObject = (obj: any) => {
+    // Utility: remove null, undefined, or empty strings
+    const removeEmpty = (obj: any): any => {
       if (Array.isArray(obj)) {
-        return obj.map(cleanObject).filter(v => v !== undefined);
-      } else if (obj && typeof obj === 'object') {
-        const cleaned: Record<string, any> = {};
-        for (const [key, value] of Object.entries(obj)) {
-          if (value !== null && value !== undefined && value !== '') {
-            cleaned[key] = cleanObject(value);
-          }
-        }
-        return cleaned;
+        return obj.map(removeEmpty).filter(v => v !== undefined);
+      }
+      if (obj && typeof obj === 'object') {
+        return Object.fromEntries(
+          Object.entries(obj)
+            .filter(([_, v]) => v !== null && v !== undefined && v !== '')
+            .map(([k, v]) => [k, removeEmpty(v)])
+        );
       }
       return obj;
     };
 
-    const cleanedMatch = cleanObject(match);
-
     res.status(200).json({
       success: true,
       message: 'Match details',
-      data: cleanedMatch
+      data: removeEmpty(match)
     });
 
   } catch (error) {
     res.status(500).json({
       success: false,
-      message: 'Error Getting Match Details',
+      message: 'Error getting match details',
       data: [],
       error: error instanceof Error ? error.message : error
     });
