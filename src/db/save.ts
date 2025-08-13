@@ -20,7 +20,7 @@ export async function saveToDB(data: any) {
     const db = client.db(dbName);
     const collection = db.collection(collectionName);
     const result = await collection.insertOne(data);
-    console.log('Saved to MongoDB:', result.insertedId);
+    console.log(`Saved to MongoDB : ${ result.insertedId}`);
     return result.insertedId;
   } catch (error) {
     console.error('MongoDB save error:', error);

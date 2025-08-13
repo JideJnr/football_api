@@ -67,7 +67,7 @@ import { sendPostCommand } from '../botClient';
     }
   };
 
-  export const getAllGamesByLogic = async ( res: Response) => {
+  export const getLogicById = async ( res: Response) => {
     try {
       const result = await sendPostCommand('logic/all');
       res.json(result);

@@ -7,9 +7,7 @@ export const sendGetCommand = async (command: any) => {
   return data;
 };
 
-
 export const sendPostCommand = async (command: any) => {
   const { data } = await axios.post(`${baseURL}/${command}`);
   return data;
 };
-
