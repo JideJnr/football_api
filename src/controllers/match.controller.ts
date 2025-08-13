@@ -67,7 +67,7 @@ export const getMatchById = async (req: Request, res: Response) => {
     const { id } = req.params;
 
     if (!ObjectId.isValid(id)) {
-      return res.status(400).json({
+      return res.status(200).json({
         success: false,
         message: 'Invalid match ID',
         data: []
@@ -83,36 +83,60 @@ export const getMatchById = async (req: Request, res: Response) => {
     await client.close();
 
     if (!match) {
-      return res.status(404).json({
+      return res.status(200).json({
         success: false,
         message: 'Match not found',
         data: []
       });
     }
 
-    // Utility: remove null, undefined, or empty strings
-    const removeEmpty = (obj: any): any => {
-      if (Array.isArray(obj)) {
-        return obj.map(removeEmpty).filter(v => v !== undefined);
+    // Structure the response data
+    const structuredData = {
+      matchInfo: {
+        id: match._id,
+        eventId: match.eventId,
+        homeTeam: match.homeTeamName,
+        awayTeam: match.awayTeamName,
+        venue: match.fixtureVenue?.name,
+        startTime: match.estimateStartTime,
+        status: match.matchStatus,
+        period: match.period,
+        playedTime: match.playedSeconds,
+        score: match.gameScore?.[0],
+        setScore: match.setScore
+      },
+      sportDetails: {
+        sport: match.sport?.name,
+        category: match.sport?.category?.name,
+        tournament: match.sport?.category?.tournament?.name
+      },
+      mainMarkets: {
+        matchWinner: match.markets?.["1X2"]?.main?.outcomes?.map((outcome: any) => ({
+          outcome: outcome.desc,
+          odds: outcome.odds
+        })),
+        overUnder: Object.entries(match.markets?.["Over/Under"] || {}).map(([key, market]: [string, any]) => ({
+          specifier: key,
+          outcomes: market.outcomes?.map((outcome: any) => ({
+            outcome: outcome.desc,
+            odds: outcome.odds
+          }))
+        })),
+        doubleChance: match.markets?.["Double Chance"]?.main?.outcomes?.map((outcome: any) => ({
+          outcome: outcome.desc,
+          odds: outcome.odds
+        }))
       }
-      if (obj && typeof obj === 'object') {
-        return Object.fromEntries(
-          Object.entries(obj)
-            .filter(([_, v]) => v !== null && v !== undefined && v !== '')
-            .map(([k, v]) => [k, removeEmpty(v)])
-        );
-      }
-      return obj;
     };
 
     res.status(200).json({
       success: true,
       message: 'Match details',
-      data: removeEmpty(match)
+      data: structuredData
     });
 
   } catch (error) {
-    res.status(500).json({
+    res.status(200).json({
       success: false,
       message: 'Error getting match details',
       data: [],
