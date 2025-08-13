@@ -12,7 +12,7 @@ import {
 const router = express.Router();
 
 // ✅ Live matches (only team names + score)
-router.get('/match/live', getLiveMatches);
+router.get('/live', getLiveMatches);
 
 // ✅ Match by ID (full details, cleaned)
 router.get('/match/:id', getMatchById);
